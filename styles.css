@@ -1,6 +1,6 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f8f8;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #2c3e50;
     margin: 0;
     display: flex;
     align-items: center;
@@ -8,67 +8,76 @@ body {
     height: 100vh;
 }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
+#quiz-container {
+    background-color: #ecf0f1;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
     text-align: center;
-    color: #3498db;
+    transition: transform 0.3s ease-in-out;
 }
 
-input {
-    width: 70%;
-    padding: 10px;
-    margin-right: 5px;
-    border: 1px solid #3498db;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #2ecc71;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #27ae60;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-span {
+.question {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
     color: #333;
 }
 
-.delete-btn {
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+.options {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.delete-btn:hover {
-    background-color: #c0392b;
+.options li {
+    background-color: #34495e;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.options li:hover {
+    background-color: #2c3e50;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+#result.correct {
+    color: #27ae60;
+}
+
+#result.incorrect {
+    color: #e74c3c;
+}
+
+button {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #34495e;
+}
+
+@media screen and (max-width: 600px) {
+    #quiz-container {
+        transform: scale(0.9);
+    }
 }

@@ -4,15 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>To-Do List App</title>
+    <title>Quiz App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #result.correct {
+            color: green;
+        }
+
+        #result.incorrect {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>To-Do List</h1>
-        <input type="text" id="taskInput" placeholder="Add a new task">
-        <button onclick="addTask()">Add Task</button>
-        <ul id="taskList"></ul>
+    <div id="quiz-container">
+        <div id="question-container" class="question"></div>
+        <ul id="options-container" class="options"></ul>
+        <div id="result"></div>
+        <button onclick="nextQuestion()">Next Question</button>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the capital of France?",
+                options: ["Berlin", "Madrid", "Paris", "Rome"],
+                correctAnswer: "Paris"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                options: ["Earth", "Mars", "Venus", "Jupiter"],
+                correctAnswer: "Mars"
+            },
+            {
+                question: "What is the largest mammal in the world?",
+                options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+                correctAnswer: "Blue Whale"
+            },
+            {
+                question: "Who wrote 'Romeo and Juliet'?",
+                options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+                correctAnswer: "William Shakespeare"
+            },
+            {
+                question: "What is the capital of Japan?",
+                options: ["Beijing", "Seoul", "Tokyo", "Bangkok"],
+                correctAnswer: "Tokyo"
+            },
+            {
+                question: "In which year did World War II end?",
+                options: ["1943", "1945", "1950", "1939"],
+                correctAnswer: "1945"
+            },
+            {
+                question: "What is the currency of Brazil?",
+                options: ["Euro", "Pound", "Real", "Yen"],
+                correctAnswer: "Real"
+            },
+            {
+                question: "Who painted the Mona Lisa?",
+                options: ["Pablo Picasso", "Vincent van Gogh", "Leonardo da Vinci", "Claude Monet"],
+                correctAnswer: "Leonardo da Vinci"
+            },
+            {
+                question: "Which country is known as the Land of the Rising Sun?",
+                options: ["China", "South Korea", "Japan", "Vietnam"],
+                correctAnswer: "Japan"
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Southern Ocean", "Pacific Ocean"],
+                correctAnswer: "Pacific Ocean"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function startQuiz() {
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionContainer = document.getElementById("question-container");
+            const optionsContainer = document.getElementById("options-container");
+            const resultContainer = document.getElementById("result");
+
+            questionContainer.textContent = quizData[currentQuestion].question;
+
+            const options = quizData[currentQuestion].options;
+            optionsContainer.innerHTML = "";
+            options.forEach((option, index) => {
+                const li = document.createElement("li");
+                li.textContent = option;
+                li.addEventListener("click", () => checkAnswer(index));
+                optionsContainer.appendChild(li);
+            });
+
+            resultContainer.textContent = "";
+        }
+
+        function checkAnswer(selectedIndex) {
+            const correctAnswer = quizData[currentQuestion].correctAnswer;
+            const resultContainer = document.getElementById("result");
+
+            if (quizData[currentQuestion].options[selectedIndex] === correctAnswer) {
+                resultContainer.textContent = "Correct!";
+                resultContainer.className = "correct";
+                score++;
+            } else {
+                resultContainer.textContent = `Incorrect! The correct answer is ${correctAnswer}.`;
+                resultContainer.className = "incorrect";
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const questionContainer = document.getElementById("question-container");
+            const optionsContainer = document.getElementById("options-container");
+            const resultContainer = document.getElementById("result");
+
+            questionContainer.textContent = "";
+            optionsContainer.innerHTML = "";
+            resultContainer.textContent = `You scored ${score} out of ${quizData.length} questions.`;
+        }
+
+        // Start the quiz
+        startQuiz();
+    </script>
 </body>
 </html>
